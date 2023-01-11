@@ -42,7 +42,8 @@ export function RegisterRoutes(app: express.Router) {
             function HeroController_getHero(request: any, response: any, next: any) {
             const args = {
                     heroId: {"in":"path","name":"heroId","required":true,"dataType":"double"},
-                    req: {"in":"request","name":"req","required":true,"dataType":"object"},
+                    name: {"in":"header","name":"name","dataType":"string"},
+                    password: {"in":"header","name":"password","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -67,6 +68,8 @@ export function RegisterRoutes(app: express.Router) {
 
             function HeroController_getHeros(request: any, response: any, next: any) {
             const args = {
+                    name: {"in":"header","name":"name","dataType":"string"},
+                    password: {"in":"header","name":"password","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

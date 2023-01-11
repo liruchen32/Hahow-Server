@@ -88,7 +88,7 @@
 				"operationId": "GetHero",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Hero or Hero with profile",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -105,15 +105,33 @@
 						}
 					}
 				},
+				"description": "Get Hero by hero_id\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
 				"security": [],
 				"parameters": [
 					{
+						"description": "The Hero's identifier",
 						"in": "path",
 						"name": "heroId",
 						"required": true,
 						"schema": {
 							"format": "double",
 							"type": "number"
+						}
+					},
+					{
+						"in": "header",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "password",
+						"required": false,
+						"schema": {
+							"type": "string"
 						}
 					}
 				]
@@ -124,21 +142,49 @@
 				"operationId": "GetHeros",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Heros or Heros with profile",
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Hero"
-									},
-									"type": "array"
+									"anyOf": [
+										{
+											"items": {
+												"$ref": "#/components/schemas/Hero"
+											},
+											"type": "array"
+										},
+										{
+											"items": {
+												"$ref": "#/components/schemas/AuthHero"
+											},
+											"type": "array"
+										}
+									]
 								}
 							}
 						}
 					}
 				},
+				"description": "Get all Heros or Heros with profiles\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "header",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "password",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

@@ -36,4 +36,18 @@ export class HeroService {
     const profile = await this.getProfile(id);
     return { ...hero, profile };
   }
+
+  public async getAuthHeros(name: string, password: string): Promise<AuthHero[]> {
+    await this.auth(name, password);
+    const heros = await this.getAll();
+
+    const result = [];
+    for (const hero of heros) {
+      const { id } = hero;
+      const profile = await this.getProfile(Number(id));
+      result.push({ ...hero, profile });
+    }
+
+    return result;
+  }
 }
