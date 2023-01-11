@@ -6,6 +6,6 @@ export type Hero = {
   image: string;
 };
 
-export type AuthUser = {
+export type AuthHero = {
   profile: Profile;
 } & Hero;

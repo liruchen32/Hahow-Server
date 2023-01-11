@@ -1,6 +1,6 @@
-import { Hero } from '../interface/Hero';
-import { Profile } from '../interface/Profile';
 import axios from 'axios';
+import { Hero, AuthHero } from '../interface/Hero';
+import { Profile } from '../interface/Profile';
 
 export class HeroService {
   public async get(id: number): Promise<Hero> {
@@ -16,5 +16,24 @@ export class HeroService {
   public async getProfile(id: number): Promise<Profile> {
     const { data }: { data: Profile } = await axios(`https://hahow-recruit.herokuapp.com/heroes/${id}/profile`);
     return data;
+  }
+
+  public async auth(name: string, password: string) {
+    const response = await axios({
+      method: 'post',
+      url: 'https://hahow-recruit.herokuapp.com/auth',
+      data: {
+        name,
+        password,
+      },
+    });
+    return response;
+  }
+
+  public async getAuthHero(name: string, password: string, id: number): Promise<AuthHero> {
+    await this.auth(name, password);
+    const hero = await this.get(id);
+    const profile = await this.getProfile(id);
+    return { ...hero, profile };
   }
 }

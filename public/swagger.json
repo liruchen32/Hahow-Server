@@ -24,6 +24,51 @@
 					"id"
 				],
 				"type": "object"
+			},
+			"Profile": {
+				"properties": {
+					"luk": {
+						"type": "number",
+						"format": "double"
+					},
+					"agi": {
+						"type": "number",
+						"format": "double"
+					},
+					"int": {
+						"type": "number",
+						"format": "double"
+					},
+					"str": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"luk",
+					"agi",
+					"int",
+					"str"
+				],
+				"type": "object"
+			},
+			"AuthHero": {
+				"allOf": [
+					{
+						"properties": {
+							"profile": {
+								"$ref": "#/components/schemas/Profile"
+							}
+						},
+						"required": [
+							"profile"
+						],
+						"type": "object"
+					},
+					{
+						"$ref": "#/components/schemas/Hero"
+					}
+				]
 			}
 		},
 		"securitySchemes": {}
@@ -38,7 +83,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/heroes/{heroId}": {
+		"/heros/{heroId}": {
 			"get": {
 				"operationId": "GetHero",
 				"responses": {
@@ -47,7 +92,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Hero"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/Hero"
+										},
+										{
+											"$ref": "#/components/schemas/AuthHero"
+										}
+									]
 								}
 							}
 						}
@@ -67,7 +119,7 @@
 				]
 			}
 		},
-		"/heroes": {
+		"/heros": {
 			"get": {
 				"operationId": "GetHeros",
 				"responses": {

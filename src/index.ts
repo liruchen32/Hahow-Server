@@ -33,12 +33,10 @@ app.use(function errorHandler(err: unknown, req: Request, res: Response, next: N
 
   if (err instanceof AxiosError) {
     if (err.response) {
-      const { status } = err.response;
-      if (status === 404) {
-        return res.status(status).json({
-          message: err.message,
-        });
-      }
+      const { status, statusText } = err.response;
+      return res.status(status).json({
+        message: statusText,
+      });
     }
   }
   if (err instanceof Error) {
