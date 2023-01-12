@@ -41,9 +41,9 @@
 |-----------------|--------------------------------------------------------------------------|
 | `swagger`         | 透過 tsoa 產生 swagger.json 和 routes.ts                                  |
 | `predev`          | 執行 dev 指令前先執行 swagger 來產生對應的 swagger doc 和 routes             |
-| `dev`            | 開發用，透過 nodemon 啟動Node Server在 3000 port                            |
+| `dev`            | 開發用，透過 nodemon 啟動 Node Server 在 3000 port                            |
 | `prebuild`        | 執行 build 指令前先執行 swagger 來產生對應的 swagger doc 和 routes            |
-| `build`           | 編譯Typescript並輸出到 build 資料夾下                                       |
+| `build`           | 編譯 Typescript 並輸出到 build 資料夾下                                       |
 | `start`           | 執行編譯後 build 底下的程式                                                 |
 
 
