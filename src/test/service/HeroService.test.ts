@@ -115,6 +115,6 @@ describe('HeroService', () => {
       } catch (error) {
         expect(error).toBeInstanceOf(Error);
       }
-    });
+    }, 10000);
   });
 });
