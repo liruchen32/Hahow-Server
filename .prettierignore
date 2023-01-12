@@ -2,3 +2,7 @@
 **/.svn
 **/.hg
 **/node_modules
+**/coverage
+**/build
+**/public
+**/package-lock.json
