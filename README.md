@@ -2,8 +2,9 @@
 
 ### First Use Steps
 1. npm install
-2. npm run dev
-3. 前往 `http://localhost:3000/docs`
+2. npm run build
+3. npm run start
+4. 前往 `http://localhost:3000/docs`
 
 ## Feature
 - Express
