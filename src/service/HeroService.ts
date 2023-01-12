@@ -5,7 +5,7 @@ import { Profile } from '../interface/Profile';
 const baseUrl = 'https://hahow-recruit.herokuapp.com';
 
 export class HeroService {
-  public async get(id: number): Promise<Hero> {
+  public async getById(id: number): Promise<Hero> {
     const { data }: { data: Hero } = await axios(`${baseUrl}/heroes/${id}`);
     return data;
   }
@@ -15,9 +15,9 @@ export class HeroService {
     return data;
   }
 
-  public async getProfile(id: number, return_with_hero_id = false): Promise<Profile> {
-    const { data }: { data: Profile } = await axios(`${baseUrl}/heroes/${id}/profile`);
-    return return_with_hero_id ? { hero_id: String(id), ...data } : data;
+  public async getProfileByHeroId(hero_id: number, return_with_hero_id = false): Promise<Profile> {
+    const { data }: { data: Profile } = await axios(`${baseUrl}/heroes/${hero_id}/profile`);
+    return return_with_hero_id ? { hero_id: String(hero_id), ...data } : data;
   }
 
   public async auth(name: string, password: string) {
@@ -32,10 +32,10 @@ export class HeroService {
     return response;
   }
 
-  public async getAuthHero(name: string, password: string, id: number): Promise<AuthHero> {
+  public async getAuthHeroByHeroId(name: string, password: string, id: number): Promise<AuthHero> {
     await this.auth(name, password);
-    const hero = await this.get(id);
-    const profile = await this.getProfile(id);
+    const hero = await this.getById(id);
+    const profile = await this.getProfileByHeroId(id);
     return { ...hero, profile };
   }
 
@@ -47,7 +47,7 @@ export class HeroService {
     const profileRequests = [];
     for (const hero of heros) {
       const { id } = hero;
-      const profileRequest = this.getProfile(Number(id), true);
+      const profileRequest = this.getProfileByHeroId(Number(id), true);
       profileRequests.push(profileRequest);
       authHerosMap.set(id, hero);
     }

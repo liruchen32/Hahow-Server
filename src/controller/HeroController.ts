@@ -18,9 +18,9 @@ export class HeroController extends Controller {
     @Header('password') password?: string,
   ): Promise<Hero | AuthHero> {
     if (name && password) {
-      return new HeroService().getAuthHero(String(name), String(password), heroId);
+      return await new HeroService().getAuthHeroByHeroId(String(name), String(password), heroId);
     }
-    return new HeroService().get(heroId);
+    return await new HeroService().getById(heroId);
   }
 
   /**
@@ -36,8 +36,8 @@ export class HeroController extends Controller {
     @Header('password') password?: string,
   ): Promise<Hero[] | AuthHero[]> {
     if (name && password) {
-      return new HeroService().getAuthHeros(String(name), String(password));
+      return await new HeroService().getAuthHeros(String(name), String(password));
     }
-    return new HeroService().getAll();
+    return await new HeroService().getAll();
   }
 }
