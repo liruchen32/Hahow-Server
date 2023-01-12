@@ -2,26 +2,28 @@ import axios from 'axios';
 import { Hero, AuthHero } from '../interface/Hero';
 import { Profile } from '../interface/Profile';
 
+const baseUrl = 'https://hahow-recruit.herokuapp.com';
+
 export class HeroService {
   public async get(id: number): Promise<Hero> {
-    const { data }: { data: Hero } = await axios(`https://hahow-recruit.herokuapp.com/heroes/${id}`);
+    const { data }: { data: Hero } = await axios(`${baseUrl}/heroes/${id}`);
     return data;
   }
 
   public async getAll(): Promise<Hero[]> {
-    const { data }: { data: Hero[] } = await axios('https://hahow-recruit.herokuapp.com/heroes');
+    const { data }: { data: Hero[] } = await axios(`${baseUrl}/heroes`);
     return data;
   }
 
   public async getProfile(id: number, return_with_hero_id = false): Promise<Profile> {
-    const { data }: { data: Profile } = await axios(`https://hahow-recruit.herokuapp.com/heroes/${id}/profile`);
+    const { data }: { data: Profile } = await axios(`${baseUrl}/heroes/${id}/profile`);
     return return_with_hero_id ? { hero_id: String(id), ...data } : data;
   }
 
   public async auth(name: string, password: string) {
     const response = await axios({
       method: 'post',
-      url: 'https://hahow-recruit.herokuapp.com/auth',
+      url: `${baseUrl}/auth`,
       data: {
         name,
         password,
@@ -54,10 +56,10 @@ export class HeroService {
     const profiles = await Promise.all(profileRequests);
 
     // promise all result is not in order, use map key to merge
-    profiles.forEach((profile) => {
+    for (const profile of profiles) {
       const { hero_id, ...profileDetail } = profile;
       authHerosMap.set(hero_id, { ...authHerosMap.get(hero_id), profile: profileDetail });
-    });
+    }
 
     return Array.from(authHerosMap.values());
   }
