@@ -7,6 +7,8 @@ export class HeroController extends Controller {
    * Get Hero by hero_id
    *- If "request.headers" have "name" and "password", it will call verification and return with profile.
    * @param heroId The Hero's identifier
+   * @param name Auth name
+   * @param password Auth password
    * @returns Hero or Hero with profile
    */
   @Get('{heroId}')
@@ -16,7 +18,6 @@ export class HeroController extends Controller {
     @Header('password') password?: string,
   ): Promise<Hero | AuthHero> {
     if (name && password) {
-      // const { name, password } = req.headers;
       return new HeroService().getAuthHero(String(name), String(password), heroId);
     }
     return new HeroService().get(heroId);
@@ -25,6 +26,8 @@ export class HeroController extends Controller {
   /**
    * Get all Heros or Heros with profiles
    *- If "request.headers" have "name" and "password", it will call verification and return with profile.
+   * @param name Auth name
+   * @param password Auth password
    * @returns Heros or Heros with profile
    */
   @Get()

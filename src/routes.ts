@@ -17,7 +17,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Profile": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"luk":{"dataType":"double","required":true},"agi":{"dataType":"double","required":true},"int":{"dataType":"double","required":true},"str":{"dataType":"double","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"luk":{"dataType":"double","required":true},"agi":{"dataType":"double","required":true},"int":{"dataType":"double","required":true},"str":{"dataType":"double","required":true},"hero_id":{"dataType":"string"}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AuthHero": {

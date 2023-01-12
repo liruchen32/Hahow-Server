@@ -42,6 +42,9 @@
 					"str": {
 						"type": "number",
 						"format": "double"
+					},
+					"hero_id": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -119,6 +122,7 @@
 						}
 					},
 					{
+						"description": "Auth name",
 						"in": "header",
 						"name": "name",
 						"required": false,
@@ -127,6 +131,7 @@
 						}
 					},
 					{
+						"description": "Auth password",
 						"in": "header",
 						"name": "password",
 						"required": false,
@@ -169,6 +174,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "Auth name",
 						"in": "header",
 						"name": "name",
 						"required": false,
@@ -177,6 +183,7 @@
 						}
 					},
 					{
+						"description": "Auth password",
 						"in": "header",
 						"name": "password",
 						"required": false,

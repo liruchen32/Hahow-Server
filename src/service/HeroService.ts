@@ -13,9 +13,9 @@ export class HeroService {
     return data;
   }
 
-  public async getProfile(id: number): Promise<Profile> {
+  public async getProfile(id: number, return_with_hero_id = false): Promise<Profile> {
     const { data }: { data: Profile } = await axios(`https://hahow-recruit.herokuapp.com/heroes/${id}/profile`);
-    return data;
+    return return_with_hero_id ? { hero_id: String(id), ...data } : data;
   }
 
   public async auth(name: string, password: string) {
@@ -41,13 +41,24 @@ export class HeroService {
     await this.auth(name, password);
     const heros = await this.getAll();
 
-    const result = [];
+    const authHerosMap = new Map();
+    const profileRequests = [];
     for (const hero of heros) {
       const { id } = hero;
-      const profile = await this.getProfile(Number(id));
-      result.push({ ...hero, profile });
+      const profileRequest = this.getProfile(Number(id), true);
+      profileRequests.push(profileRequest);
+      authHerosMap.set(id, hero);
     }
 
-    return result;
+    // using promise all to run each request
+    const profiles = await Promise.all(profileRequests);
+
+    // promise all result is not in order, use map key to merge
+    profiles.forEach((profile) => {
+      const { hero_id, ...profileDetail } = profile;
+      authHerosMap.set(hero_id, { ...authHerosMap.get(hero_id), profile: profileDetail });
+    });
+
+    return Array.from(authHerosMap.values());
   }
 }
