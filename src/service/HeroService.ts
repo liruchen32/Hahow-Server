@@ -55,7 +55,7 @@ export class HeroService {
     // using promise all to run each request
     const profiles = await Promise.all(profileRequests);
 
-    // promise all result is not in order, use map key to merge
+    // promise all result is not in order, use hero_id key to merge
     for (const profile of profiles) {
       const { hero_id, ...profileDetail } = profile as ProfileWithHeroId;
       authHeroesMap.set(hero_id, { ...authHeroesMap.get(hero_id), profile: profileDetail });
