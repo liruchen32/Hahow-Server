@@ -1,192 +1,206 @@
 {
-  "components": {
-    "examples": {},
-    "headers": {},
-    "parameters": {},
-    "requestBodies": {},
-    "responses": {},
-    "schemas": {
-      "Hero": {
-        "properties": {
-          "image": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
-        },
-        "required": ["image", "name", "id"],
-        "type": "object"
-      },
-      "Profile": {
-        "properties": {
-          "luk": {
-            "type": "number",
-            "format": "double"
-          },
-          "agi": {
-            "type": "number",
-            "format": "double"
-          },
-          "int": {
-            "type": "number",
-            "format": "double"
-          },
-          "str": {
-            "type": "number",
-            "format": "double"
-          },
-          "hero_id": {
-            "type": "string"
-          }
-        },
-        "required": ["luk", "agi", "int", "str"],
-        "type": "object"
-      },
-      "AuthHero": {
-        "allOf": [
-          {
-            "properties": {
-              "profile": {
-                "$ref": "#/components/schemas/Profile"
-              }
-            },
-            "required": ["profile"],
-            "type": "object"
-          },
-          {
-            "$ref": "#/components/schemas/Hero"
-          }
-        ]
-      }
-    },
-    "securitySchemes": {}
-  },
-  "info": {
-    "title": "hahow-server",
-    "version": "1.0.0",
-    "license": {
-      "name": "ISC"
-    },
-    "contact": {}
-  },
-  "openapi": "3.0.0",
-  "paths": {
-    "/heros/{heroId}": {
-      "get": {
-        "operationId": "GetHero",
-        "responses": {
-          "200": {
-            "description": "Hero or Hero with profile",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/Hero"
-                    },
-                    {
-                      "$ref": "#/components/schemas/AuthHero"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "description": "Get Hero by hero_id\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
-        "security": [],
-        "parameters": [
-          {
-            "description": "The Hero's identifier",
-            "in": "path",
-            "name": "heroId",
-            "required": true,
-            "schema": {
-              "format": "double",
-              "type": "number"
-            }
-          },
-          {
-            "description": "Auth name",
-            "in": "header",
-            "name": "name",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Auth password",
-            "in": "header",
-            "name": "password",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/heros": {
-      "get": {
-        "operationId": "GetHeros",
-        "responses": {
-          "200": {
-            "description": "Heros or Heros with profile",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "anyOf": [
-                    {
-                      "items": {
-                        "$ref": "#/components/schemas/Hero"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "items": {
-                        "$ref": "#/components/schemas/AuthHero"
-                      },
-                      "type": "array"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        },
-        "description": "Get all Heros or Heros with profiles\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
-        "security": [],
-        "parameters": [
-          {
-            "description": "Auth name",
-            "in": "header",
-            "name": "name",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Auth password",
-            "in": "header",
-            "name": "password",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    }
-  },
-  "servers": [
-    {
-      "url": "/"
-    }
-  ]
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Hero": {
+				"properties": {
+					"image": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"image",
+					"name",
+					"id"
+				],
+				"type": "object"
+			},
+			"Profile": {
+				"properties": {
+					"luk": {
+						"type": "number",
+						"format": "double"
+					},
+					"agi": {
+						"type": "number",
+						"format": "double"
+					},
+					"int": {
+						"type": "number",
+						"format": "double"
+					},
+					"str": {
+						"type": "number",
+						"format": "double"
+					},
+					"hero_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"luk",
+					"agi",
+					"int",
+					"str"
+				],
+				"type": "object"
+			},
+			"AuthHero": {
+				"allOf": [
+					{
+						"properties": {
+							"profile": {
+								"$ref": "#/components/schemas/Profile"
+							}
+						},
+						"required": [
+							"profile"
+						],
+						"type": "object"
+					},
+					{
+						"$ref": "#/components/schemas/Hero"
+					}
+				]
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "hahow-server",
+		"version": "1.0.0",
+		"description": "Hahow Server for interview",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Lucien"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/heros/{heroId}": {
+			"get": {
+				"operationId": "GetHero",
+				"responses": {
+					"200": {
+						"description": "Hero or Hero with profile",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/Hero"
+										},
+										{
+											"$ref": "#/components/schemas/AuthHero"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"description": "Get Hero by hero_id\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
+				"security": [],
+				"parameters": [
+					{
+						"description": "The Hero's identifier",
+						"in": "path",
+						"name": "heroId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "Auth name",
+						"in": "header",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Auth password",
+						"in": "header",
+						"name": "password",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/heros": {
+			"get": {
+				"operationId": "GetHeros",
+				"responses": {
+					"200": {
+						"description": "Heros or Heros with profile",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"items": {
+												"$ref": "#/components/schemas/Hero"
+											},
+											"type": "array"
+										},
+										{
+											"items": {
+												"$ref": "#/components/schemas/AuthHero"
+											},
+											"type": "array"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"description": "Get all Heros or Heros with profiles\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
+				"security": [],
+				"parameters": [
+					{
+						"description": "Auth name",
+						"in": "header",
+						"name": "name",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "Auth password",
+						"in": "header",
+						"name": "password",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
 }
