@@ -1,16 +1,16 @@
 import { HeroService } from '../../service/HeroService';
-import { Hero } from '../../interface/Hero';
-import { Profile } from '../../interface/Profile';
+import { Hero, AuthHero } from '../../interface/Hero';
+import { Profile, ProfileWithHeroId } from '../../interface/Profile';
 
 describe('HeroService', () => {
   describe('getAuthHeroByHeroId', () => {
     test('it should return hero data with profile', async () => {
-      const fakeHero = {
+      const fakeHero: Hero = {
         id: '1',
         name: 'faker',
         image: 'https://google.com',
       };
-      const fakeProfile = {
+      const fakeProfile: Profile = {
         str: 1,
         int: 2,
         agi: 3,
@@ -45,7 +45,7 @@ describe('HeroService', () => {
           image: 'https://google.com',
         },
       ];
-      const fakeProfiles: Profile[] = [
+      const fakeProfiles: ProfileWithHeroId[] = [
         {
           hero_id: '1',
           str: 1,
@@ -61,6 +61,30 @@ describe('HeroService', () => {
           luk: 44,
         },
       ];
+      const fakeAuthHeros: AuthHero[] = [
+        {
+          id: '1',
+          name: 'faker',
+          image: 'https://google.com',
+          profile: {
+            str: 1,
+            int: 2,
+            agi: 3,
+            luk: 4,
+          },
+        },
+        {
+          id: '2',
+          name: 'faker2',
+          image: 'https://google.com',
+          profile: {
+            str: 11,
+            int: 22,
+            agi: 33,
+            luk: 44,
+          },
+        },
+      ];
       const service = new HeroService();
       const spyAuth = jest.spyOn(service, 'auth');
       const spyGetAll = jest.spyOn(service, 'getAll').mockResolvedValue(fakeHeros);
@@ -73,10 +97,8 @@ describe('HeroService', () => {
       expect(spyGetAll).toHaveBeenCalledTimes(1);
       expect(spyGetProfileByHeroId).toHaveBeenCalledTimes(2);
       expect(authHeros.length).toBe(2);
-      delete fakeProfiles[0].hero_id;
-      delete fakeProfiles[1].hero_id;
-      expect(authHeros[0]).toEqual({ ...fakeHeros[0], profile: fakeProfiles[0] });
-      expect(authHeros[1]).toEqual({ ...fakeHeros[1], profile: fakeProfiles[1] });
+      expect(authHeros[0]).toEqual(fakeAuthHeros[0]);
+      expect(authHeros[1]).toEqual(fakeAuthHeros[1]);
       spyAuth.mockRestore();
       spyGetAll.mockRestore();
       spyGetProfileByHeroId.mockRestore();
