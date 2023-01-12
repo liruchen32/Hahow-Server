@@ -17,9 +17,9 @@ describe('HeroService', () => {
         luk: 4,
       };
       const service = new HeroService();
-      const spyAuth = jest.spyOn(service, 'auth');
+      const spyAuth = jest.spyOn(service as any, 'auth');
       const spyGetById = jest.spyOn(service, 'getById').mockResolvedValue(fakeHero);
-      const spyGetProfileByHeroId = jest.spyOn(service, 'getProfileByHeroId').mockResolvedValue(fakeProfile);
+      const spyGetProfileByHeroId = jest.spyOn(service as any, 'getProfileByHeroId').mockResolvedValue(fakeProfile);
       const authHero = await service.getAuthHeroByHeroId('hahow', 'rocks', 1);
       expect(spyAuth).toHaveBeenCalledTimes(1);
       expect(spyGetById).toHaveBeenCalledTimes(1);
@@ -86,10 +86,10 @@ describe('HeroService', () => {
         },
       ];
       const service = new HeroService();
-      const spyAuth = jest.spyOn(service, 'auth');
+      const spyAuth = jest.spyOn(service as any, 'auth');
       const spyGetAll = jest.spyOn(service, 'getAll').mockResolvedValue(fakeHeroes);
       const spyGetProfileByHeroId = jest
-        .spyOn(service, 'getProfileByHeroId')
+        .spyOn(service as any, 'getProfileByHeroId')
         .mockResolvedValueOnce(fakeProfiles[0])
         .mockResolvedValueOnce(fakeProfiles[1]);
       const authHeroes = await service.getAuthHeroes('hahow', 'rocks');
