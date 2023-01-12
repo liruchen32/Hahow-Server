@@ -39,17 +39,17 @@ export class HeroService {
     return { ...hero, profile };
   }
 
-  public async getAuthHeros(name: string, password: string): Promise<AuthHero[]> {
+  public async getAuthHeroes(name: string, password: string): Promise<AuthHero[]> {
     await this.auth(name, password);
-    const heros = await this.getAll();
+    const heroes = await this.getAll();
 
-    const authHerosMap = new Map();
+    const authHeroesMap = new Map();
     const profileRequests = [];
-    for (const hero of heros) {
+    for (const hero of heroes) {
       const { id } = hero;
       const profileRequest = this.getProfileByHeroId(Number(id), true);
       profileRequests.push(profileRequest);
-      authHerosMap.set(id, hero);
+      authHeroesMap.set(id, hero);
     }
 
     // using promise all to run each request
@@ -58,9 +58,9 @@ export class HeroService {
     // promise all result is not in order, use map key to merge
     for (const profile of profiles) {
       const { hero_id, ...profileDetail } = profile as ProfileWithHeroId;
-      authHerosMap.set(hero_id, { ...authHerosMap.get(hero_id), profile: profileDetail });
+      authHeroesMap.set(hero_id, { ...authHeroesMap.get(hero_id), profile: profileDetail });
     }
 
-    return Array.from(authHerosMap.values());
+    return Array.from(authHeroesMap.values());
   }
 }

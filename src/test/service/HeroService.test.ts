@@ -31,9 +31,9 @@ describe('HeroService', () => {
     }, 10000);
   });
 
-  describe('getAuthHeros', () => {
-    test('it should return heros data with profile', async () => {
-      const fakeHeros: Hero[] = [
+  describe('getAuthHeroes', () => {
+    test('it should return heroes data with profile', async () => {
+      const fakeHeroes: Hero[] = [
         {
           id: '1',
           name: 'faker',
@@ -61,7 +61,7 @@ describe('HeroService', () => {
           luk: 44,
         },
       ];
-      const fakeAuthHeros: AuthHero[] = [
+      const fakeAuthHeroes: AuthHero[] = [
         {
           id: '1',
           name: 'faker',
@@ -87,18 +87,18 @@ describe('HeroService', () => {
       ];
       const service = new HeroService();
       const spyAuth = jest.spyOn(service, 'auth');
-      const spyGetAll = jest.spyOn(service, 'getAll').mockResolvedValue(fakeHeros);
+      const spyGetAll = jest.spyOn(service, 'getAll').mockResolvedValue(fakeHeroes);
       const spyGetProfileByHeroId = jest
         .spyOn(service, 'getProfileByHeroId')
         .mockResolvedValueOnce(fakeProfiles[0])
         .mockResolvedValueOnce(fakeProfiles[1]);
-      const authHeros = await service.getAuthHeros('hahow', 'rocks');
+      const authHeroes = await service.getAuthHeroes('hahow', 'rocks');
       expect(spyAuth).toHaveBeenCalledTimes(1);
       expect(spyGetAll).toHaveBeenCalledTimes(1);
       expect(spyGetProfileByHeroId).toHaveBeenCalledTimes(2);
-      expect(authHeros.length).toBe(2);
-      expect(authHeros[0]).toEqual(fakeAuthHeros[0]);
-      expect(authHeros[1]).toEqual(fakeAuthHeros[1]);
+      expect(authHeroes.length).toBe(2);
+      expect(authHeroes[0]).toEqual(fakeAuthHeroes[0]);
+      expect(authHeroes[1]).toEqual(fakeAuthHeroes[1]);
       spyAuth.mockRestore();
       spyGetAll.mockRestore();
       spyGetProfileByHeroId.mockRestore();

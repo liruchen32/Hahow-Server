@@ -42,9 +42,6 @@
 					"str": {
 						"type": "number",
 						"format": "double"
-					},
-					"hero_id": {
-						"type": "string"
 					}
 				},
 				"required": [
@@ -89,7 +86,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/heros/{heroId}": {
+		"/heroes/{heroId}": {
 			"get": {
 				"operationId": "GetHero",
 				"responses": {
@@ -145,12 +142,12 @@
 				]
 			}
 		},
-		"/heros": {
+		"/heroes": {
 			"get": {
-				"operationId": "GetHeros",
+				"operationId": "GetHeroes",
 				"responses": {
 					"200": {
-						"description": "Heros or Heros with profile",
+						"description": "Heroes or Heroes with profile",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -173,7 +170,7 @@
 						}
 					}
 				},
-				"description": "Get all Heros or Heros with profiles\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
+				"description": "Get all Heroes or Heroes with profiles\n- If \"request.headers\" have \"name\" and \"password\", it will call verification and return with profile.",
 				"security": [],
 				"parameters": [
 					{

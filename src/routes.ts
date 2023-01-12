@@ -41,7 +41,6 @@ const models: TsoaRoute.Models = {
         agi: { dataType: 'double', required: true },
         int: { dataType: 'double', required: true },
         str: { dataType: 'double', required: true },
-        hero_id: { dataType: 'string' },
       },
       validators: {},
     },
@@ -70,7 +69,7 @@ export function RegisterRoutes(app: express.Router) {
   //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
   // ###########################################################################################################
   app.get(
-    '/heros/:heroId',
+    '/heroes/:heroId',
     ...fetchMiddlewares<RequestHandler>(HeroController),
     ...fetchMiddlewares<RequestHandler>(HeroController.prototype.getHero),
 
@@ -98,11 +97,11 @@ export function RegisterRoutes(app: express.Router) {
   );
   // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   app.get(
-    '/heros',
+    '/heroes',
     ...fetchMiddlewares<RequestHandler>(HeroController),
-    ...fetchMiddlewares<RequestHandler>(HeroController.prototype.getHeros),
+    ...fetchMiddlewares<RequestHandler>(HeroController.prototype.getHeroes),
 
-    function HeroController_getHeros(request: any, response: any, next: any) {
+    function HeroController_getHeroes(request: any, response: any, next: any) {
       const args = {
         name: { in: 'header', name: 'name', dataType: 'string' },
         password: { in: 'header', name: 'password', dataType: 'string' },
@@ -116,7 +115,7 @@ export function RegisterRoutes(app: express.Router) {
 
         const controller = new HeroController();
 
-        const promise = controller.getHeros.apply(controller, validatedArgs as any);
+        const promise = controller.getHeroes.apply(controller, validatedArgs as any);
         promiseHandler(controller, promise, response, undefined, next);
       } catch (err) {
         return next(err);
