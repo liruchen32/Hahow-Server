@@ -6,22 +6,31 @@ const baseUrl = 'https://hahow-recruit.herokuapp.com';
 
 export class HeroService {
   public async getById(id: number): Promise<Hero> {
-    const { data }: { data: Hero } = await axios(`${baseUrl}/heroes/${id}`);
-    return data;
+    const { data } = await axios(`${baseUrl}/heroes/${id}`);
+    if (data.code) {
+      throw new Error(data.message);
+    }
+    return data as Hero;
   }
 
   public async getAll(): Promise<Hero[]> {
-    const { data }: { data: Hero[] } = await axios(`${baseUrl}/heroes`);
-    return data;
+    const { data } = await axios(`${baseUrl}/heroes`);
+    if (data.code) {
+      throw new Error(data.message);
+    }
+    return data as Hero[];
   }
 
   public async getProfileByHeroId(hero_id: number, return_with_hero_id = false): Promise<Profile | ProfileWithHeroId> {
-    const { data }: { data: Profile } = await axios(`${baseUrl}/heroes/${hero_id}/profile`);
-    return return_with_hero_id ? { hero_id: String(hero_id), ...data } : data;
+    const { data } = await axios(`${baseUrl}/heroes/${hero_id}/profile`);
+    if (data.code) {
+      throw new Error(data.message);
+    }
+    return return_with_hero_id ? ({ hero_id: String(hero_id), ...data } as ProfileWithHeroId) : (data as Profile);
   }
 
   public async auth(name: string, password: string) {
-    const response = await axios({
+    const { data } = await axios({
       method: 'post',
       url: `${baseUrl}/auth`,
       data: {
@@ -29,7 +38,10 @@ export class HeroService {
         password,
       },
     });
-    return response;
+
+    if (data.code) {
+      throw new Error(data.message);
+    }
   }
 
   public async getAuthHeroByHeroId(name: string, password: string, id: number): Promise<AuthHero> {

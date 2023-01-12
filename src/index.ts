@@ -43,7 +43,7 @@ app.use(function errorHandler(err: unknown, req: Request, res: Response, next: N
   }
   if (err instanceof Error) {
     return res.status(500).json({
-      message: 'Internal Server Error',
+      message: err.message || 'Internal Server Error',
     });
   }
   next();

@@ -104,4 +104,17 @@ describe('HeroService', () => {
       spyGetProfileByHeroId.mockRestore();
     }, 10000);
   });
+
+  describe('getById', () => {
+    test('it should return hero', async () => {
+      try {
+        const service = new HeroService();
+        const hero = await service.getById(1);
+        expect(hero).toHaveProperty('id');
+        expect(hero.id).toEqual('1');
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+      }
+    });
+  });
 });
