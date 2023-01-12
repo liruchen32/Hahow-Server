@@ -10,7 +10,7 @@ export class HeroService {
     if (data.code) {
       throw new Error(data.message);
     }
-    return data as Hero;
+    return data;
   }
 
   public async getAll(): Promise<Hero[]> {
@@ -18,18 +18,18 @@ export class HeroService {
     if (data.code) {
       throw new Error(data.message);
     }
-    return data as Hero[];
+    return data;
   }
 
-  public async getProfileByHeroId(hero_id: number, return_with_hero_id = false): Promise<Profile | ProfileWithHeroId> {
+  private async getProfileByHeroId(hero_id: number, return_with_hero_id = false): Promise<Profile | ProfileWithHeroId> {
     const { data } = await axios(`${baseUrl}/heroes/${hero_id}/profile`);
     if (data.code) {
       throw new Error(data.message);
     }
-    return return_with_hero_id ? ({ hero_id: String(hero_id), ...data } as ProfileWithHeroId) : (data as Profile);
+    return return_with_hero_id ? { hero_id: String(hero_id), ...data } : data;
   }
 
-  public async auth(name: string, password: string) {
+  private async auth(name: string, password: string) {
     const { data } = await axios({
       method: 'post',
       url: `${baseUrl}/auth`,
@@ -67,8 +67,8 @@ export class HeroService {
     // using promise all to run each request
     const profiles = await Promise.all(profileRequests);
 
-    // promise all result is not in order, use hero_id key to merge
     for (const profile of profiles) {
+      // Typescript think this could be Profile or ProfileWithHeroId, have to make it as ProfileWithHeroId
       const { hero_id, ...profileDetail } = profile as ProfileWithHeroId;
       authHeroesMap.set(hero_id, { ...authHeroesMap.get(hero_id), profile: profileDetail });
     }
