@@ -12,32 +12,51 @@
 - Express
 - TypeScript
 - ESLint
+
 ```
 檢查程式碼是否有符合相關規範
 ```
+
 - Prettier
+
 ```
 統一程式碼的風格
 ```
+
 - [Morgan](https://github.com/expressjs/morgan#readme 'link')
+
 ```
 記錄 http 的請求和錯誤
 ```
+
 - [TSOA](https://github.com/lukeautry/tsoa#readme 'link')
+
 ```
 自動產生 routes 和符合 OpenAPI 規範的文件，這裡使用 swagger
 ```
-- [husky](https://typicode.github.io/husky 'link')
+
+- [Husky](https://typicode.github.io/husky 'link')
+
 ```
 註冊各式hooks 事件
 ```
+
 - Jest
+
 ```
 測試套件
 ```
+
 - Nodemon
+
 ```
 監視程式碼的變動並自動重啟程式
+```
+
+- Cors
+
+```
+允許跨域請求
 ```
 
 ## Project
@@ -84,5 +103,5 @@
 | `start`            | 執行編譯後 build 底下的程式                                        |
 | `test`             | 執行 test 資料夾底下的測試                                         |
 | `format`           | 透過 prettier 統一修改程式碼樣式                                   |
-| `eslint`           | 檢查程式碼是否符合 eslint 規範                                  |
+| `eslint`           | 檢查程式碼是否符合 eslint 規範                                     |
 | `prepare`          | To automatically have Git hooks enabled after install              |

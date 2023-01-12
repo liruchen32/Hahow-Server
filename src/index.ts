@@ -3,6 +3,7 @@ import { ValidateError } from 'tsoa';
 import { AxiosError } from 'axios';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 
 import { RegisterRoutes } from '../src/routes';
 
@@ -14,6 +15,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(morgan('tiny'));
 app.use(express.static('public'));
+app.use(cors({ origin: true, credentials: true }));
 
 app.use('/docs', swaggerUi.serve, async (_req: Request, res: Response) => {
   return res.send(swaggerUi.generateHTML(await import('../public/swagger.json')));
