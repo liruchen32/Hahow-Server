@@ -8,7 +8,7 @@ const jestConfig: JestConfigWithTsJest = {
   testRegex: '/src/.*\\.(test|spec).(ts|tsx|js)$',
   testEnvironment: 'node',
   collectCoverageFrom: ['src/service/*.{js,jsx,tsx,ts}', '!**/node_modules/**', '!**/vendor/**'],
-  coverageReporters: ['json', ['lcov', { projectRoot: './' }], 'text', 'clover'],
+  coverageReporters: ['json-summary', ['lcov', { projectRoot: './' }], 'text', 'clover'],
   testPathIgnorePatterns: ['build'],
 };
 
