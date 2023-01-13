@@ -36,13 +36,13 @@
 - [TSOA](https://github.com/lukeautry/tsoa#readme 'link')
 
 ```
-自動產生 routes 和符合 OpenAPI 規範的文件，這裡使用 swagger
+自動產生 routes 和符合 OpenAPI 規範的文件，這裡使用 Swagger
 ```
 
 - [Husky](https://typicode.github.io/husky 'link')
 
 ```
-註冊各式hooks 事件
+註冊各式 hooks 事件
 ```
 
 - Jest
@@ -61,6 +61,10 @@
 
 ```
 允許跨域請求
+```
+- Istanbul-badges-readme
+```
+自動將測試產生的覆蓋率相關資料更新至 README
 ```
 
 ## Project
@@ -109,3 +113,7 @@
 | `format`           | 透過 prettier 統一修改程式碼樣式                                   |
 | `eslint`           | 檢查程式碼是否符合 eslint 規範                                     |
 | `prepare`          | To automatically have Git hooks enabled after install              |
+| `make-badges`          | 產生測試相關結果至 README             |
+
+## 心得
+趁著這次練習的機會，使用了之前發現的一個方便的套件 - [TSOA](https://github.com/lukeautry/tsoa#readme 'link') 。可以透過 Typescript 的特性自動幫忙產生 routes 和符合 OpenAPI 規範的文件。也因為這個套件使用了許多 Typescript 的 Decorator，讓我更加了解 Decorator 所帶來的便利性。
