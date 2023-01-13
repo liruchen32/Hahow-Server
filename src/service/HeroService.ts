@@ -1,20 +1,11 @@
-import axios, { AxiosRequestConfig } from 'axios';
 import { Hero, AuthHero } from '../interface/Hero';
 import { Profile, ProfileWithHeroId } from '../interface/Profile';
+import { getFromHahow } from './HahowService';
 
 const baseUrl = 'https://hahow-recruit.herokuapp.com';
-
 export class HeroService {
-  private async getFromHahow(config: AxiosRequestConfig) {
-    const { data } = await axios(config);
-    if (data.code) {
-      throw new Error(data.message);
-    }
-    return data;
-  }
-
   public async getById(id: number): Promise<Hero> {
-    const hero = await this.getFromHahow({
+    const hero = await getFromHahow({
       method: 'get',
       url: `${baseUrl}/heroes/${id}`,
     });
@@ -22,7 +13,7 @@ export class HeroService {
   }
 
   public async getAll(): Promise<Hero[]> {
-    const heros = await this.getFromHahow({
+    const heros = await getFromHahow({
       method: 'get',
       url: `${baseUrl}/heroes`,
     });
@@ -30,7 +21,7 @@ export class HeroService {
   }
 
   private async getProfileByHeroId(hero_id: number, return_with_hero_id = false): Promise<Profile | ProfileWithHeroId> {
-    const profile = await this.getFromHahow({
+    const profile = await getFromHahow({
       method: 'get',
       url: `${baseUrl}/heroes/${hero_id}/profile`,
     });
@@ -38,7 +29,7 @@ export class HeroService {
   }
 
   private async auth(name: string, password: string) {
-    await this.getFromHahow({
+    await getFromHahow({
       method: 'post',
       url: `${baseUrl}/auth`,
       data: {
