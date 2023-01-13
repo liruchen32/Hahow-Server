@@ -59,7 +59,6 @@ export class HeroService {
       authHeroesMap.set(id, hero);
     }
 
-    // using promise all to run each request
     const profiles = await Promise.all(profileRequests);
 
     for (const profile of profiles) {
