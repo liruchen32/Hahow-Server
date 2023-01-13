@@ -116,4 +116,10 @@
 | `make-badges`          | 產生測試相關結果至 README             |
 
 ## 心得
-趁著這次練習的機會，使用了之前發現的一個方便的套件 - [TSOA](https://github.com/lukeautry/tsoa#readme 'link') 。可以透過 Typescript 的特性自動幫忙產生 routes 和符合 OpenAPI 規範的文件。也因為這個套件使用了許多 Typescript 的 Decorator，讓我更加了解 Decorator 所帶來的便利性。
+趁著這次練習的機會，使用了之前發現的一個方便的套件 - [TSOA](https://github.com/lukeautry/tsoa#readme 'link') ，可以透過 Typescript 的特性自動幫忙產生 routes 和符合 OpenAPI 規範的文件。也因為這個套件使用了許多 Typescript 的 Decorator，讓我更加了解 Decorator 所帶來的便利性。另外藉由使用 [Husky](https://typicode.github.io/husky 'link') 來幫我針對在 git commit 前可以檢查是否有符合 eslint 的規定和 prettier 來統一專案程式碼風格，並且在 git push 前跑一遍測試來確保程式沒有異常。
+
+這份專案我只有在 controller 和 getAuthHeroes 有寫註解。會在 controller 寫註解是為了可以更清楚了解這個 api 的行為，同時也可以呈現在 swagger 文件上，讓其他人在使用時可以更加清楚的了解 api 的 paypload。而 getAuthHeros 則是因為會需要透過 Typescirpt 的 `as` (`const { id } = A as B`) 來轉型，所以特別註明。
+
+這次的測試選擇越來越流行的 [Jest](https://jestjs.io/ 'link') ，是我第一次接觸，也讓我在 mock api 的時候花了不少腦經。原本一開始用 [spyOn](https://jestjs.io/docs/jest-object#jestspyonobject-methodname 'link') 的方式去 mock ，但如果沒有特別指定的話， spyOn 還是會實際去呼叫程式。最後我還是採用 [mock](https://jestjs.io/docs/jest-object#jestmockmodulename-factory-options 'link') 整個 module 的方式，假裝我有向 hahow 請求資料，再手動指定回傳的內容，讓測試的範圍只侷限在邏輯的正確性。
+
+不過在呼叫 hahow 的 api 時，發現有時候 `response.status` 會是 200，但是內容卻是 `{ code: 1000,  message: 'backend error' }`，所以需要自行判斷回傳的內容並適時的拋出錯誤。為此我也寫了關於錯誤的測試，確保我在接收到錯的 `response.data` 時程式會成功報錯。
